@@ -21,8 +21,8 @@ echo Service will be installed for user '{{ service_user }}'
 echo Service will be installed for user 'LOCALSYSTEM'
     {% set auth_params = "" %}
 {% endif %}
-{%- set binpath = "\"{{ virtualenv_path }}\Scripts\python.exe\" -m cloudify_agent.worker --vars-file {{ vars_file }} --queue \"{{ queue }}\" --max-workers {{ max_workers }} --name \"{{ name }}\"" -%}
-{%- set displayname = "Cloudify Agent - {{ name }}" -%}
+{%- set binpath = '\\"' + virtualenv_path + '\Scripts\python.exe\\" -m cloudify_agent.worker --vars-file \\"' + vars_file + '\\" --queue \\"' + queue + '\\" --max-workers ' + max_workers + ' --name \\"' + name  + '\\"' -%}
+{%- set displayname = 'Cloudify Agent - ' + name -%}
 
 echo Creating service: name={{ name }}, startup policy={{ startup_policy }}, path={{ binpath }}, display name={{ displayname }}
 sc create {{ name }} start= {{ startup_policy }} binpath= "{{ binpath }}" displayname= "{{ displayname }}" {{ auth_params }}
@@ -31,7 +31,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit 1
 )
 
-{%- set description = "Cloudify Agent Service for {{ name }}" -%}
+{%- set description = "Cloudify Agent Service " + name -%}
 echo Setting service description: {{ description }}...
 sc description {{ name }} "{{ description }}"
 if %ERRORLEVEL% NEQ 0 (
