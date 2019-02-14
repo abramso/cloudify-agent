@@ -511,7 +511,8 @@ def main():
             env_vars = json.load(f)
         for name, value in env_vars.items():
             os.environ[name] = str(value)
-
+        from cloudify import broker_config
+        reload(broker_config)
     if args.name:
         _setup_excepthook(args.name)
     if not args.name:
