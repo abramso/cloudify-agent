@@ -73,7 +73,7 @@ class NonSuckingServiceManagerDaemon(Daemon):
 
         self.config_path = os.path.join(
             self.workdir,
-            '{0}.conf.bat'.format(self.name))
+            '{0}.conf.ps1'.format(self.name))
         self.nssm_path = utils.get_absolute_resource_path(
             os.path.join('pm', 'nssm', 'nssm.exe'))
         self.startup_policy = params.get('startup_policy', 'auto')
