@@ -22,7 +22,9 @@ from cloudify.mocks import MockCloudifyContext
 def mock_get_brokers(*args, **kwargs):
     return [
         {
-            'host': '127.0.0.1',
+            'networks': {
+                'default': '127.0.0.1'
+            },
             'ca_cert_content': '',
         },
     ]
